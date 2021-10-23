@@ -1,0 +1,66 @@
+:root {
+    --blue: royalblue;
+    --light: whitesmoke;
+}
+body {
+    background-color: var(--light);
+}
+
+h1 {
+    text-align: center;
+    color: var(--light);
+    background-color: midnightblue;
+    padding: 24px;
+}
+
+.divider{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.forecast{
+    border: inset;
+    border-radius: 5%;
+    box-shadow: 8px 10px 10px slategray;
+    padding: 15px;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-right: 1%;
+    color: var(--light);
+    background-color: var(--blue);
+}
+
+#todaysWeather{
+    border: solid;
+    border-color: slategray;
+    box-shadow: 8px 10px 10px slategray;
+    padding: 15px;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-right: 0.25px;
+    margin-bottom: 1%;
+}
+
+#searchBtn{
+    background-color: var(--blue);
+}
+
+#uviText{
+    display: flex;
+    text-align: left;
+}
+
+#uviValue{
+    margin-left: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5px;
+}
+
+#forecastedWeather{
+    display: flex;
+}
+
+#todaysWeather{
+    display: flex;
+}
