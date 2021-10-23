@@ -21,7 +21,7 @@ THEN I am again presented with current and future conditions for that city
 
 ## My Task
 
-I first set up a base HTML page using bootstrap, then added some styling. From there I started working on the js file, setting up basic variables like the DOM selectors and Globals. I made a function for the search button, taking the value of the text field.
+I first set up a base HTML page using bootstrap, then added some styling. From there I started working on the js file, setting up basic variables like the DOM selectors and Globals. Also the variable apiKey to plug into urls. I made a function for the search button, taking the value of the text field.
 
 It took a while to learn the ins and outs of the OpenWeatherAPI, it was confusing at first but i realized how simple it was once i got the data array and url formatting down. Taking the aforementioned value of the textfield, the function plugs it into a string that makes it a proper url and plugs it into the fetchCity function. This function takes the inputted city's latitude and longitude values and plugs them into the mainUrl variable, and puts this variable into two seperate functions; one for today's weather, and one for future forecasts. These functions are called the fetchTodaysWeather and fetchFutureWeather respectively, they operate similarly in taking values from their data arrays, aside from the fact that one uses a for loop for it's multiple cards.
 

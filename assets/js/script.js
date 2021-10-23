@@ -76,10 +76,7 @@ function fetchTodaysWeather(mainUrl){
             todaysWeather.wind = data.current.wind_speed;
             todaysWeather.humidity = data.current.humidity;
             todaysWeather.uvi = data.current.uvi;
-            todaysWeather.weatherIcon = data.current.weather[0].icon;
-
-            // Always returns 0? after many tests seems to be an API side problem
-            console.log(data.current.uvi);
+            todaysWeather.icon = data.current.weather[0].icon;
             
             renderTodaysWeather(todaysWeather);
         })
@@ -108,10 +105,10 @@ function fetchFutureWeather(mainUrl){
                     futureWeather.temp = data.daily[i].temp.day;
                     futureWeather.wind = data.daily[i].wind_speed;
                     futureWeather.humidity = data.daily[i].humidity;
-                    futureWeather.weatherIcon = data.daily[i].weather[0].icon;
+                    futureWeather.icon = data.daily[i].weather[0].icon;
                     forecastWeather.push(futureWeather);
                 }
-                renderForecast(forecastWeather);
+                renderFutureWeather(forecastWeather);
                 forecastWeather = [];
             }
         })
@@ -144,11 +141,11 @@ function renderSaved(){
     var storedHistory = JSON.parse(localStorage.getItem("localSaveHist"));
     if(storedHistory !== null){
         searchHistory = storedHistory
-    }for(index = 0; index < searchHistory.length; index++){
+    }for(i = 0; i < searchHistory.length; i++){
         var button = $("<button>");
         button.addClass("btn btn-outline-secondary historyBtn");
-        button.text(searchHistory[index]);
-        button.attr("value", searchHistory[index]);
+        button.text(searchHistory[i]);
+        button.attr("value", searchHistory[i]);
         searchHistDiv.append(button);
     }
 
@@ -159,48 +156,57 @@ function renderSaved(){
 
 // Render Today's Weather
 function renderTodaysWeather(today){``
-    //UVI modifiers
+    // UVI modifiers
     var uviVal = $("#uviValue");
 
     if(today.uvi < 2){
         uviVal.css({ "background-color": "GreenYellow" });
-    }else if (2 < today.uvi < 4){
+    }else if (2 < today.uvi < 5){
         uviVal.css({ "background-color": "Yellow" });
-    }else if (4 < today.uvi < 6){
+    }else if (5 < today.uvi < 7){
         uviVal.css({ "background-color": "Orange" });
     }else{
         uviVal.css({ "background-color": "Tomato" });
     }
+    
+    var todayIcon = "<img id=\"wicon\" src=\"http://openweathermap.org/img/w/" + todaysWeather.icon + ".png\" alt=\"Today's Weather icon\"></img>"
 
     uviVal.text(today.uvi);
 
     $("#todaysDate").text(today.name + " (" + today.date + ")");
+    $("#todaysDate").append(todayIcon);
     $("#todaysTemp").text("Temp: " + today.temp + "°F");
     $("#todaysWind").text("Wind: " + today.wind + " MPH");
     $("#todaysHum").text("Humidity: " + today.humidity + "%");
     $("#uviLabel").text("UV Index: ");
+
+    
 }
 
 
 // Render Future Weather Forecasts
-function renderForecast(forecast){
+function renderFutureWeather(forecast){
     futureWeatherDiv.html("");
-    for(var index = 0; index < forecast.length; index++){
+    for(var i = 0; i < forecast.length; i++){
         // Create div and h3 (card data and date as title respectively)
         var div = $("<div>");
         div.addClass("col forecast");
 
         var h3 = $("<h3>");
         h3.addClass("fs-4");
-        h3.text(moment(forecast[index].date, dateFormat).format(dateFormat));
-        
+        h3.text(moment(forecast[i].date, dateFormat).format(dateFormat));
+
+        var forecastIcon = "<img id=\"wicon\" src=\"http://openweathermap.org/img/w/" + forecast[i].icon + ".png\" alt=\"Today's Weather icon\"></img>"
+        console.log(forecastIcon);
+
         futureWeatherDiv.append(div);
 
         // Append Card Data Text
         div.append(h3);
-        div.append($("<p>").text("Temp: " + forecast[index].temp + "°F"));
-        div.append($("<p>").text("Wind: " + forecast[index].wind + " MPH"));
-        div.append($("<p>").text("Humidity: " + forecast[index].humidity + "%"));
+        h3.append(forecastIcon);
+        div.append($("<p>").text("Temp: " + forecast[i].temp + "°F"));
+        div.append($("<p>").text("Wind: " + forecast[i].wind + " MPH"));
+        div.append($("<p>").text("Humidity: " + forecast[i].humidity + "%"));
     }
 }
 
