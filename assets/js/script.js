@@ -23,16 +23,16 @@ function searchFrmButton(){
 
     // Standard search function, used raw by saved searches
 function search(cityName){
-    var fetchURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + apiKey;
+    var citySearch = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + apiKey;
     futureWeatherDiv.html("");
-    fetchFunction(fetchURL);
+    fetchCity(citySearch);
 }
 
 // API Fetch Functions
 
     //Use search input and search for two sets of data
-function fetchFunction(fetchURL){
-    fetch(fetchURL,{
+function fetchCity(citySearch){
+    fetch(citySearch,{
     })
         .then(function(response){
             if(response.status === 200){
@@ -44,18 +44,22 @@ function fetchFunction(fetchURL){
             }
         })
         .then(function(data){
-                saveSearch(data.name)
-                todaysWeather.name = data.name
-                var latitude = data.coord.lat;
-                var longitude = data.coord.lon;
-                fetchcurrWeather(longitude, latitude);
-                fetchForecast(longitude, latitude);
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+
+            saveSearch(data.name)
+            todaysWeather.name = data.name
+
+            var mainUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&cnt=6&units=imperial&appid=" + apiKey;
+
+            fetchTodaysWeather(mainUrl);
+            fetchFutureWeather(mainUrl);
         })
 };
 
     // Fetch Today's Weather Data
-function fetchcurrWeather(lon, lat){
-    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=hourly,daily,minutely,alerts&appid=" + apiKey, {
+function fetchTodaysWeather(mainUrl){
+    fetch(mainUrl, {
     })
         .then(function(response){
             if (response.status === 200){
@@ -83,8 +87,8 @@ function fetchcurrWeather(lon, lat){
 }
 
     // Fetch Future Forecast Weather Data
-function fetchForecast(lon, lat){
-    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&cnt=6&units=imperial&appid=" + apiKey, {
+function fetchFutureWeather(mainUrl){
+    fetch(mainUrl, {
     })
         .then(function(response){
             if (response.status === 200){
