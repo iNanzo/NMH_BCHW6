@@ -155,7 +155,17 @@ function renderSaved(){
 }
 
 // Render Today's Weather
-function renderTodaysWeather(today){``
+function renderTodaysWeather(today){
+    todaysWeatherDiv.css({
+        "border": "solid",
+        "border-color": "slategray",
+        "box-shadow": "8px 10px 10px slategray",
+        "padding": "15px",
+        "padding-top": "3%",
+        "padding-bottom": "3%",
+        "margin-right": "0.25px",
+        "margin-bottom": "1%"
+    })
     // UVI modifiers
     var uviVal = $("#uviValue");
 

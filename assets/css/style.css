@@ -31,7 +31,7 @@ h1 {
     background-color: var(--blue);
 }
 
-#todaysWeather{
+/* #todaysWeather{
     border: solid;
     border-color: slategray;
     box-shadow: 8px 10px 10px slategray;
@@ -40,7 +40,7 @@ h1 {
     padding-bottom: 3%;
     margin-right: 0.25px;
     margin-bottom: 1%;
-}
+} */
 
 #searchBtn{
     background-color: var(--blue);
